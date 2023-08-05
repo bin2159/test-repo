@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from "react";
+import Header from "./components/header/Header";
+import InputChocolate from "./components/addchocolate/InputChocolate";
+import ChocolateList from "./components/ChocolateList/ChocolateList";
+import ChocoContextProvider from "./context/ChocoContext";
+import Cart from "./components/cart/Cart";
 function App() {
+  const [showCart,setShowCart]=useState(true)
+  const showCartHandler=()=>{
+    setShowCart(!showCart)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChocoContextProvider>
+      <Header showCart={showCartHandler}/>
+      {showCart&&<Cart showCart={showCartHandler}/>}
+    <main>
+      <InputChocolate/>
+      <ChocolateList/>
+    </main>
+    </ChocoContextProvider>
   );
 }
 
